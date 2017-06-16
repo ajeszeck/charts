@@ -31,3 +31,34 @@ function drawChart() {
   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
   chart.draw(data, options);
 }
+
+google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChartTwo);
+    function drawChartTwo() {
+      var data = google.visualization.arrayToDataTable([
+        ["Topping", "Popularity", { role: "style" } ],
+        ["Tomato", 6, "blue"],
+        ["Pepperoni", 7, "red"],
+        ["Peppers", 4, "orange"],
+        ["Pineapple", 6, "green"],
+        ["Fried Shrimp", 1, "purple"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Favorite Toppings in the HTML 300 Class",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
